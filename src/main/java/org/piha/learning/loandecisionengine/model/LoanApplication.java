@@ -1,5 +1,6 @@
 package org.piha.learning.loandecisionengine.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import org.piha.learning.loandecisionengine.enums.LoanStatus;
@@ -32,8 +33,9 @@ public class LoanApplication {
 
     private LocalDateTime createdAt;
 
-    @OneToOne
+    @OneToOne(mappedBy = "loanApplication", cascade = CascadeType.ALL)
     @JoinColumn(name = "decision_id")
+    @JsonIgnore // j'ai ajouté ça pour empécher la récursion infinie
     private Decision decision;
 
     @PrePersist

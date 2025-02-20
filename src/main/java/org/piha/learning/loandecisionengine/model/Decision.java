@@ -1,5 +1,6 @@
 package org.piha.learning.loandecisionengine.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -20,6 +21,7 @@ public class Decision {
 
     @OneToOne
     @JoinColumn(name = "loan_id", nullable = false)
+    @JsonBackReference // pour empécher la récursion infinie
     private LoanApplication loanApplication;
 
     private boolean approved;
